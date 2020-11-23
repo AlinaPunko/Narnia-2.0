@@ -1,0 +1,19 @@
+.order-page {
+    width: 95%;
+    margin: 10px auto;
+
+    @media (min-width: 768px) {
+        width: 80%;
+    }
+
+    @media (min-width: 1024px) {
+        width: 60%;
+    }
+}
+
+.order-page__title {
+    padding: 10px 0;
+    font-size: 30px;
+    font-family: "Lucida Sans", sans-serif;
+    text-align: center;
+}

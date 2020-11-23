@@ -1,0 +1,14 @@
+.footer {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-around;
+    height: 50px;
+    background-color: #106cc8;
+}
+
+.footer__text {
+    color: #ffffff;
+    font-size: 20px;
+    font-family: 'Lucida Sans', sans-serif;
+}

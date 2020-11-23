@@ -1,0 +1,52 @@
+.orders-with-statuses-section__title {
+    padding: 10px 0;
+    font-size: 30px;
+    font-family: "Lucida Sans", sans-serif;
+    text-align: center;
+}
+
+.orders-with-statuses-section__preloader-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.orders-with-statuses-section__preloader {
+    height: 50px;
+}
+
+.orders-with-statuses-section__orders-table {
+    width: 100%;
+    font-family: "Lucida Sans", sans-serif;
+    text-align: center;
+    border: 1px;
+    border-color: #106cc8;
+}
+
+.orders-with-statuses-section__orders-header {
+    background-color: mistyrose;
+}
+
+.orders-with-statuses-section__header-td {
+    padding: 10px 0;
+    font-size: 25px;
+}
+
+.orders-with-statuses-section__line-td {
+    padding: 5px 0;
+    font-size: 20px;
+    white-space: pre-line;
+}
+
+.cancel-button {
+    font-size: 20px;
+    background-color: white;
+    border: 2px red solid;
+    border-radius: 5px;
+}
+
+.approve-button {
+    font-size: 20px;
+    background-color: white;
+    border: 2px forestgreen solid;
+    border-radius: 5px;
+}

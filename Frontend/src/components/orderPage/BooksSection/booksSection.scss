@@ -1,0 +1,81 @@
+.books-section {
+    margin: 0 auto;
+}
+
+.books-section-list-item {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    min-height: 0;
+    margin: 20px;
+    padding: 10px;
+    font-family: 'Lucida Sans', sans-serif;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+
+    @media (min-width: 425px) {
+        flex-direction: row;
+    }
+}
+
+.books-section-list-item__title {
+    font-size: 26px;
+}
+
+.books-section-list-item__authors,
+.books-section-list-item__genres,
+.books-section-list-item__publishing-year,
+.books-section-list-item__pages,
+.books-section-list-item__amount {
+    padding: 5px 0;
+    font-size: 16px;
+}
+
+.books-section-list-item__description {
+    width: 90%;
+    padding: 20px 0;
+    font-size: 14px;
+}
+
+.books-section-list-item__image {
+    width: auto;
+    height: 150px;
+}
+
+.books-section__total-price {
+    font-size: 24px;
+    font-family: 'Lucida Sans', sans-serif;
+}
+
+.books-section__save-button {
+    width: auto;
+    margin: 10px auto;
+    padding: 5px;
+    color: #ffffff;
+    font-size: 20px;
+    font-family: 'Lucida Sans', sans-serif;
+    background-color: #106cc8;
+    border: none;
+}
+
+.books-section-list-item__buttons {
+    display: flex;
+}
+
+.books-section-list-item__details-button,
+.books-section-list-item__favorite-button {
+    margin: 5px;
+    padding: 10px;
+    color: #ffffff;
+    text-transform: uppercase;
+    background-color: #106cc8;
+    border: none;
+}
+
+.books-section__preloader-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.books-section__preloader {
+    height: 50px;
+}

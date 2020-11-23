@@ -1,0 +1,13 @@
+.search-section {
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+
+    @media (min-width: 768px) {
+        width: 60%;
+    }
+
+    @media (min-width: 1024px) {
+        width: 40%;
+    }
+}
