@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      SA_PASSWORD: "31415926Punko"
+      ACCEPT_EULA: "Y"
+
+  service:
+    image: ${DOCKER_REGISTRY-}service
+    build:
+      context: .
+      dockerfile: Service/Dockerfile
+    ports:
+      - "5000:80"
+    depends_on:
+      - db
