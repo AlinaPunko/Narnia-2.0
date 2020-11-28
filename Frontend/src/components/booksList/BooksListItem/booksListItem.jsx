@@ -13,6 +13,7 @@ import localStorageHelper from 'helpers/localStorageHelper';
 import urlHelper from 'helpers/urlHelper';
 import routing from 'constants/routing';
 
+import bookIcon from 'styles/icons/book.svg';
 import edit from 'styles/icons/edit.svg';
 import './booksListItem.scss';
 
@@ -49,7 +50,19 @@ export default class BooksListItem extends React.Component {
 
         return (
             <div className="books-list-item">
-                <img alt="book" src={book.image} className="books-list-item__image" />
+                {
+                    (book.image === null || book.image === '')
+                        ? (
+                            <Icon iconClassName="books-list-item__image" icon={bookIcon} />
+                        )
+                        : (
+                            <img
+                                alt="book"
+                                src={book.image}
+                                className="books-list-item__image"
+                            />
+                        )
+                }
                 <div className="books-list-item__information">
                     <div className="books-list-item__title">{book.title}</div>
                     <div className="books-list-item__authors">{book.authors.join(', ')}</div>
@@ -57,13 +70,13 @@ export default class BooksListItem extends React.Component {
                     <div className="books-list-item__price">{book.price} р.</div>
                     {
                         localStorageHelper.getRole() === 'admin'
-                                && (
-                                    <Link to={urlHelper.getUrlWithParameter(routing.addBookPage.url, /:id/, book.id)}>
-                                        <button type="button" className="books-list-item__button">
-                                            <Icon icon={edit} iconClassName="books-list-item__button-icon" />
-                                        </button>
-                                    </Link>
-                                )
+                            && (
+                                <Link to={urlHelper.getUrlWithParameter(routing.addBookPage.url, /:id/, book.id)}>
+                                    <button type="button" className="books-list-item__button">
+                                        <Icon icon={edit} iconClassName="books-list-item__button-icon" />
+                                    </button>
+                                </Link>
+                            )
                     }
                     <OpenDetailsPageButton bookId={book.id} className="books-list-item__open-details-page-button" />
                     {

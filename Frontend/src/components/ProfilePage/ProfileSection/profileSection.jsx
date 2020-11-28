@@ -10,6 +10,7 @@ import localStorageHelper from 'helpers/localStorageHelper';
 import Icon from 'components/common/Icon/icon';
 
 import preloader from 'styles/icons/preloader.svg';
+import account from 'styles/icons/account.svg';
 import './profileSection.scss';
 
 class ProfileSection extends React.PureComponent {
@@ -152,12 +153,20 @@ class ProfileSection extends React.PureComponent {
                 <h1 className="profile-section__title">Your profile</h1>
                 <form className="profile-section__form">
                     <div className="profile-section__image-block">
-                        <img
-                            className="profile-section__user-image"
-                            alt=""
-                            src={this.state.photo}
-                        />
-                        <div>
+                        {
+                            (this.state.photo === null || this.state.photo === '')
+                                ? (
+                                    <Icon iconClassName="profile-section__user-image" icon={account} />
+                                )
+                                : (
+                                    <img
+                                        className="profile-section__user-image"
+                                        alt=""
+                                        src={this.state.photo}
+                                    />
+                                )
+                        }
+                        <div className="profile-section__buttons">
                             <button className="profile-section__add-image-button" type="button" onClick={this.addPhoto}>
                                 Add image
                             </button>
@@ -222,8 +231,10 @@ class ProfileSection extends React.PureComponent {
                         {
                             this.getValidationResult()
                         }
-                        <input type="submit" className="profile-section__save-button" onClick={this.save} value="Save" />
-                        <input type="reset" className="profile-section__close-button" onClick={this.close} value="Close" />
+                        <div className="profile-section__buttons">
+                            <input type="submit" className="profile-section__save-button" onClick={this.save} value="Save" />
+                            <input type="reset" className="profile-section__close-button" onClick={this.close} value="Close" />
+                        </div>
                     </div>
                 </form>
             </section>

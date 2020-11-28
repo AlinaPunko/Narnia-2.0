@@ -55,8 +55,7 @@ namespace Service.Controllers
                         Image = b.EncodedPhoto,
                         PublishingYear = b.PublishingYear,
                         Authors = b.BookToAuthors.Select(a => a.Author.Name).ToList(),
-                        Genres = b.BookToGenres.Select(g => g.Genre.ToString()).ToList(),
-                        Comments = commentRepository.GetByBookId(b.Id)
+                        Genres = b.BookToGenres.Select(g => g.Genre.ToString()).ToList()
                     }
                 )
                 .ToList();
@@ -79,7 +78,17 @@ namespace Service.Controllers
                 PublishingYear = book.PublishingYear,
                 Authors = book.BookToAuthors.Select(a => a.Author.Name).ToList(),
                 Genres = book.BookToGenres.Select(g => g.Genre.ToString()).ToList(),
-                Comments = commentRepository.GetByBookId(book.Id),
+                Comments = commentRepository.GetByBookId(book.Id)
+                    .Select(c => new CommentViewModel {
+                        Id = c.Id,
+                        Text = c.Text,
+                        BookId = c.BookId,
+                        UserId = c.UserId,
+                        UserName = c.User.Name,
+                        UserPhoto = c.User.Photo
+                    })
+                    .ToList(),
+
                 Count = book.Count
             };
         }

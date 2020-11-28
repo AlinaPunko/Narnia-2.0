@@ -8,7 +8,7 @@
     padding: 10px;
     font-family: 'Lucida Sans', sans-serif;
 
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
         flex-direction: row;
         width: 60%;
     }
@@ -48,7 +48,9 @@
 
 .book-details-page__image {
     width: auto;
+    max-width: 500px;
     height: 250px;
+    margin: 0 auto;
     padding: 0 10px;
 }
 

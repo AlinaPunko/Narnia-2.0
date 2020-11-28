@@ -104,8 +104,9 @@ class SignUpPage extends React.PureComponent {
                 userData.role = 'user';
                 result = await serviceWrapper.callService(signUpService.signUp, userData, this.errorFieldRef);
             }
-            debugger;
-            if (result) {
+            if (localStorageHelper.getRole() === 'admin') {
+                redirectHelper.redirectToHomePage(this.props.history);
+            } else if (result) {
                 alert('Success');
                 localStorageHelper.addId(result.id);
                 localStorageHelper.addRole(result.role);

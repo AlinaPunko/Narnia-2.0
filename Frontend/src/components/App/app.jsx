@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { UserContext } from 'store/context/UserContext';
+import { UserContext } from 'store/context/userContext';
 import Header from 'components/Header/header';
 import Footer from 'components/Footer/footer';
 import SideMenu from 'components/SideMenu/sideMenu';
@@ -14,36 +14,19 @@ export default class App extends React.PureComponent {
     constructor(props) {
         super(props);
 
-        this.setUserId = (userId) => {
-            this.setState(() => ({
-                userId
-            }));
-        };
-
         this.setFavoriteBooks = (favoriteBooks) => {
             this.setState(() => ({
                 favoriteBooks
             }));
         };
 
-        this.setRole = (role) => {
-            this.setState(() => ({
-                role
-            }));
-        };
-
         this.state = {
             showSideMenu: false,
             showAccountMenu: false,
-            userId: '',
-            role: '',
             favoriteBooks: [],
-            setFavoriteBooks: this.setFavoriteBooks,
-            setUserId: this.setUserId,
-            setRole: this.setRole
+            setFavoriteBooks: this.setFavoriteBooks
         };
     }
-
 
     openSideMenu = () => {
         this.setState({ showSideMenu: true });

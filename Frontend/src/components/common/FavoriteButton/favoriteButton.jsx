@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { UserContext } from 'store/context/UserContext';
+import { UserContext } from 'store/context/userContext';
 import favoritesServices from 'services/favoritesService';
 import favoriteItemHelper from 'helpers/favoriteItemHelper';
 import localStorageHelper from 'helpers/localStorageHelper';

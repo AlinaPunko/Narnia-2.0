@@ -44,7 +44,7 @@ export default class CommentsSection extends React.PureComponent {
         return (
             <section className="comments-section">
                 <h2 className="comments-section__title">Comments</h2>
-                <textarea
+                <input
                     onChange={this.changeComment}
                     value={this.state.message}
                     placeholder="Enter your opinion here"

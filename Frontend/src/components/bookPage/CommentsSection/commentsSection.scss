@@ -1,7 +1,14 @@
 .comments-section {
-    width: 50%;
     margin: 10px auto;
     font-family: "Lucida Sans", sans-serif;
+
+    @media (min-width: 768px) {
+        width: 80%;
+    }
+
+    @media (min-width: 1024px) {
+        width: 60%;
+    }
 }
 
 .comments-section__title {
@@ -15,13 +22,8 @@
     font-size: 18px;
 }
 
-.comments-section__buttons {
-    display: flex;
-    justify-content: space-around;
-}
-
 .comments-section__button {
-    margin: 10px 0;
+    margin: 10px auto;
     padding: 5px;
     color: #ffffff;
     font-size: 16px;

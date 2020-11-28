@@ -55,7 +55,7 @@ class SignInPage extends React.PureComponent {
         if (this.validator.allValid()) {
             const userData = { ...this.state };
             const result = await serviceWrapper.callService(signInService.signIn, userData, this.errorFieldRef);
-            debugger;
+            
             if (result) {
                 localStorageHelper.addId(result.id);
                 localStorageHelper.addToken(result.token);

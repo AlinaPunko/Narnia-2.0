@@ -83,16 +83,13 @@ export default class AddAuthorPage extends React.PureComponent {
     save = async (e) => {
         e.preventDefault();
         if (this.validator.allValid()) {
-            let result;
             if (this.state.id === 0) {
-                result = await serviceWrapper.callService(authorService.add, this.state, this.errorFieldRef);
+                await serviceWrapper.callService(authorService.add, this.state, this.errorFieldRef);
             } else {
-                result = await serviceWrapper.callService(authorService.update, this.state, this.errorFieldRef);
+                await serviceWrapper.callService(authorService.update, this.state, this.errorFieldRef);
             }
-            if (result) {
-                alert('Author has been successfilly added/updated');
-                redirectHelper.redirectToHomePage(this.props.history);
-            }
+            alert('Author has been successfilly added/updated');
+            redirectHelper.redirectToHomePage(this.props.history);
         } else {
             this.validator.showMessages();
             this.forceUpdate();

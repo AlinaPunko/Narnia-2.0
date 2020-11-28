@@ -21,6 +21,6 @@ namespace Service.ViewModels
 
         public IReadOnlyList<string> Authors { get; set; }
         public IReadOnlyList<string> Genres { get; set; }
-        public IReadOnlyList<Comment> Comments { get; set; }
+        public IReadOnlyList<CommentViewModel> Comments { get; set; }
     }
 }

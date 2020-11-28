@@ -35,7 +35,7 @@ class BooksList extends React.PureComponent {
 
     async componentDidMount() {
         await this.loadFavoriteBooks();
-        this.loadBooks();
+        await this.loadBooks();
         window.addEventListener('scroll', this.handleScroll);
     }
 

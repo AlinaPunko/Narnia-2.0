@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import ShoppingCartCounter from 'components/common/ShoppingCartCounter/shoppingCartCounter';
 import OpenDetailsPageButton from 'components/common/OpenDetailsPageButton/openDetailsPageButton';
+import Icon from 'components/common/Icon/icon';
 
+import bookIcon from 'styles/icons/book.svg';
 import './favoriteListItem.scss';
 
 export default class FavoriteListItem extends React.PureComponent {
@@ -40,11 +42,23 @@ export default class FavoriteListItem extends React.PureComponent {
                     <div className="favorite-list-item__pages">Pages: {pagesCount}</div>
                     <div className="favorite-list-item__publishing-year">Publishing year: {publishingYear}</div>
                     <div className="favorite-list-item__price">Price: {price}</div>
-                    <ShoppingCartCounter bookId={id} className="book-details-page__icon" />
+                    <ShoppingCartCounter bookId={id} className="favorite-list-item__icon" />
                     <OpenDetailsPageButton bookId={id} className="favorite-list-item__open-details-page-button" />
                     <button type="button" className="favorite-list-item__remove-favorite-button" onClick={this.deleteItem}>Remove favorite</button>
                 </div>
-                <img alt="Item_image" className="favorite-list-item__image" src={image} />
+                {
+                    (image === null || image === '')
+                        ? (
+                            <Icon iconClassName="favorite-list-item__image" icon={bookIcon} />
+                        )
+                        : (
+                            <img
+                                alt="book"
+                                src={image}
+                                className="favorite-list-item__image"
+                            />
+                        )
+                }
             </div>
         );
     }

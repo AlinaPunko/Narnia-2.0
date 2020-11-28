@@ -49,8 +49,7 @@ namespace Service.Controllers
                         Authors = b.Book.BookToAuthors.Select(a => a.Author.Name).ToList(),
                         Amount = b.Amount
                     })
-                        .ToList(),
-                    User = order.User
+                        .ToList()
                 };
             }).ToList();
         }
@@ -79,7 +78,6 @@ namespace Service.Controllers
                         Amount = b.Amount
                     })
                     .ToList(),
-                    User = order.User
                 };
             }).ToList();
         }
@@ -108,7 +106,6 @@ namespace Service.Controllers
                         Amount = b.Amount
                     })
                     .ToList(),
-                    User = order.User
                 };
             }).ToList();
         }

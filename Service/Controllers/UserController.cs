@@ -175,23 +175,7 @@ namespace Service.Controllers
 
             authClaims.Add(new Claim(ClaimTypes.Role, "user"));
 
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
-
-            var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"],
-                audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(3),
-                claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                );
-
-            return Ok(new
-            {
-                id = user.Id,
-                role = "user",
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = token.ValidTo
-            });
+            return Ok();
         }
 
         [HttpPut("Update")]
@@ -224,9 +208,19 @@ namespace Service.Controllers
 
         [Authorize]
         [HttpGet("GetById")]
-        public async Task<User> GetById(string id)
+        public async Task<UserViewModel> GetById(string id)
         {
-            return await userManager.FindByIdAsync(id);
+            var user = await userManager.FindByIdAsync(id);
+
+            return new UserViewModel
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Photo = user.Photo,
+                Phone = user.Phone,
+                Address = user.Address
+            };
         }
     }
 }

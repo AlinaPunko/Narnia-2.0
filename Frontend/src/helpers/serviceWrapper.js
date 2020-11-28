@@ -1,6 +1,6 @@
 async function callService(service, data, errorRef) {
     const result = await service(data);
-    debugger;
+    
     if (result instanceof Error) {
         errorRef.current.innerHTML = '';
         if (Array.isArray(result.message)) {

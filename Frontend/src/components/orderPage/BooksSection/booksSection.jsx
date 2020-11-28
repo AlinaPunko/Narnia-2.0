@@ -9,6 +9,7 @@ import bookService from 'services/bookService';
 import orderService from 'services/orderService';
 import Icon from 'components/common/Icon/icon';
 
+import bookIcon from 'styles/icons/book.svg';
 import preloader from 'styles/icons/preloader.svg';
 import './booksSection.scss';
 
@@ -87,7 +88,19 @@ export default class BooksSection extends React.Component {
                             <FavoriteButton book={element} className="books-section-list-item__favorite-button" />
                         </div>
                     </div>
-                    <img alt="Item_image" className="books-section-list-item__image" src={element.image} />
+                    {
+                        (element.image === null || element.image === '')
+                            ? (
+                                <Icon iconClassName="books-section-list-item__image" icon={bookIcon} />
+                            )
+                            : (
+                                <img
+                                    alt="book"
+                                    src={element.image}
+                                    className="books-section-list-item__image"
+                                />
+                            )
+                    }
                 </div>
             );
         });

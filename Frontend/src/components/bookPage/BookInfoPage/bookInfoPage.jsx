@@ -12,6 +12,7 @@ import urlHelper from 'helpers/urlHelper';
 import localStorageHelper from 'helpers/localStorageHelper';
 import routing from 'constants/routing';
 
+import bookIcon from 'styles/icons/book.svg';
 import preloader from 'styles/icons/preloader.svg';
 import edit from 'styles/icons/edit.svg';
 import './bookInfoPage.scss';
@@ -86,7 +87,19 @@ export default class BookInfoPage extends React.PureComponent {
                         <p className="book-details-page__description">{book.description}</p>
                         <RatingPanel rating={book.rating} bookId={book.id} />
                     </div>
-                    <img alt="Item_image" className="book-details-page__image" src={book.image} />
+                    {
+                        (book.image === null || book.image === '')
+                            ? (
+                                <Icon iconClassName="book-details-page__image" icon={bookIcon} />
+                            )
+                            : (
+                                <img
+                                    alt="book"
+                                    src={book.image}
+                                    className="book-details-page__image"
+                                />
+                            )
+                    }
                 </section>
                 {
                     localStorageHelper.getId()
