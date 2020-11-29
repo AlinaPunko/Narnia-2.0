@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "404b733dc656a8645642";
+/******/ 	var hotCurrentHash = "58efd847fd8ed0434e0b";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -1143,7 +1143,7 @@ exports.push([module.i, ".add-author-block {\n  width: 45%; }\n\n.add-author-blo
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".add-book-page {\n  margin: 0 auto;\n  padding: 20px;\n  border: 1px #8a8a8a solid;\n  border-radius: 10px; }\n  @media (min-width: 768px) {\n    .add-book-page {\n      width: 80%; } }\n  @media (min-width: 1024px) {\n    .add-book-page {\n      width: 60%; } }\n\n.add-book-page__title {\n  padding: 10px 0;\n  font-size: 30px;\n  font-family: \"Lucida Sans\", sans-serif;\n  text-align: center; }\n\n.add-book-page__form {\n  display: flex;\n  flex-wrap: wrap;\n  align-content: center;\n  justify-content: space-around;\n  width: 100%; }\n\n.add-book-page__image-block {\n  align-self: flex-start;\n  padding: 10px; }\n\n.add-book-page__book-image {\n  width: auto;\n  height: 250px;\n  margin: 0 auto; }\n\n.add-book-page__author-genres {\n  display: flex;\n  justify-content: space-around;\n  width: 100%; }\n\n.add-book-page__form-button {\n  width: 50%;\n  margin: 10px auto;\n  padding: 5px 0;\n  color: #ffffff;\n  font-family: \"Lucida Sans\", sans-serif;\n  background-color: #106cc8;\n  border-color: #106cc8;\n  border-radius: 5px; }\n\n.add-book-page__validation-result {\n  color: #ff0000;\n  font-family: \"Lucida Sans\", sans-serif; }\n\n.add-book-page__preloader-icon {\n  width: 100%;\n  height: 100%; }\n\n.add-book-page__preloader {\n  height: 50px; }\n", ""]);
+exports.push([module.i, ".add-book-page {\n  margin: 0 auto;\n  padding: 20px;\n  border: 1px #8a8a8a solid;\n  border-radius: 10px; }\n  @media (min-width: 768px) {\n    .add-book-page {\n      width: 80%; } }\n  @media (min-width: 1024px) {\n    .add-book-page {\n      width: 60%; } }\n\n.add-book-page__title {\n  padding: 10px 0;\n  font-size: 30px;\n  font-family: \"Lucida Sans\", sans-serif;\n  text-align: center; }\n\n.add-book-page__form {\n  display: flex;\n  flex-wrap: wrap;\n  align-content: center;\n  justify-content: space-around;\n  width: 100%; }\n\n.add-book-page__image-block {\n  align-self: flex-start;\n  padding: 10px; }\n\n.add-book-page__book-image {\n  display: block;\n  width: auto;\n  height: 250px;\n  margin: 0 auto; }\n\n.add-book-page__author-genres {\n  display: flex;\n  justify-content: space-around;\n  width: 100%; }\n\n.add-book-page__form-button {\n  width: 50%;\n  margin: 10px auto;\n  padding: 5px 0;\n  color: #ffffff;\n  font-family: \"Lucida Sans\", sans-serif;\n  background-color: #106cc8;\n  border-color: #106cc8;\n  border-radius: 5px; }\n\n.add-book-page__validation-result {\n  color: #ff0000;\n  font-family: \"Lucida Sans\", sans-serif; }\n\n.add-book-page__preloader-icon {\n  width: 100%;\n  height: 100%; }\n\n.add-book-page__preloader {\n  height: 50px; }\n", ""]);
 
 
 
@@ -1233,7 +1233,7 @@ exports.push([module.i, ".authors-list-item {\n  width: 80%;\n  margin: 5px;\n  
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".book-details-page {\n  display: flex;\n  flex-direction: column-reverse;\n  justify-content: space-between;\n  width: 90%;\n  min-height: 0;\n  margin: 0 auto;\n  padding: 10px;\n  font-family: 'Lucida Sans', sans-serif; }\n  @media (min-width: 1024px) {\n    .book-details-page {\n      flex-direction: row;\n      width: 60%; } }\n\n.book-details-page__title {\n  font-size: 26px; }\n\n.book-details-page__authors,\n.book-details-page__genres {\n  padding: 5px 0;\n  font-size: 18px;\n  font-style: italic; }\n\n.book-details-page__price,\n.book-details-page__pages,\n.book-details-page__publishing-year {\n  padding: 5px 0;\n  font-size: 16px; }\n\n.book-details-page__description {\n  padding: 20px 0;\n  font-size: 18px; }\n\n.book-details-page__button {\n  margin: 5px;\n  padding: 10px;\n  color: #ffffff;\n  text-transform: uppercase;\n  background-color: #106cc8;\n  border: none; }\n\n.book-details-page__image {\n  width: auto;\n  max-width: 500px;\n  height: 250px;\n  margin: 0 auto;\n  padding: 0 10px; }\n\n.book-details-page__icon {\n  width: 15px;\n  height: 15px;\n  fill: #ffffff; }\n\n.book-details-page__preloader-icon {\n  width: 100%;\n  height: 100%; }\n\n.book-details-page__preloader {\n  height: 50px; }\n", ""]);
+exports.push([module.i, ".book-details-page {\n  display: flex;\n  flex-direction: column-reverse;\n  justify-content: space-between;\n  width: 90%;\n  min-height: 0;\n  margin: 0 auto;\n  padding: 10px;\n  font-family: 'Lucida Sans', sans-serif; }\n  @media (min-width: 1024px) {\n    .book-details-page {\n      flex-direction: row;\n      width: 60%; } }\n\n.book-details-page__title {\n  font-size: 26px; }\n\n.book-details-page__authors,\n.book-details-page__genres {\n  padding: 5px 0;\n  font-size: 18px;\n  font-style: italic; }\n\n.book-details-page__price,\n.book-details-page__pages,\n.book-details-page__publishing-year {\n  padding: 5px 0;\n  font-size: 16px; }\n\n.book-details-page__description {\n  padding: 20px 0;\n  font-size: 18px; }\n\n.book-details-page__button {\n  margin: 5px;\n  padding: 10px;\n  color: #ffffff;\n  text-transform: uppercase;\n  background-color: #106cc8;\n  border: none; }\n\n.book-details-page__image {\n  width: auto;\n  max-width: 500px;\n  height: 250px;\n  margin: 0 auto;\n  padding: 0 10px; }\n\n.book-details-page__icon {\n  width: 15px;\n  height: 15px;\n  fill: #000000; }\n\n.book-details-page__preloader-icon {\n  width: 100%;\n  height: 100%; }\n\n.book-details-page__preloader {\n  height: 50px; }\n", ""]);
 
 
 
@@ -61093,6 +61093,7 @@ var BookInfoPage = /*#__PURE__*/function (_React$PureComponent) {
     key: "render",
     value: function render() {
       var book = this.state.book;
+      debugger;
 
       if (this.state.isLoading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -61134,7 +61135,7 @@ var BookInfoPage = /*#__PURE__*/function (_React$PureComponent) {
       }, "Price: ", book.price), helpers_localStorageHelper__WEBPACK_IMPORTED_MODULE_10__["default"].getId() !== '' && helpers_localStorageHelper__WEBPACK_IMPORTED_MODULE_10__["default"].getId() !== undefined && helpers_localStorageHelper__WEBPACK_IMPORTED_MODULE_10__["default"].getRole() === 'user' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_FavoriteButton_favoriteButton__WEBPACK_IMPORTED_MODULE_5__["default"], {
         book: book,
         className: "book-details-page__button"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_ShoppingCartCounter_shoppingCartCounter__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }), book.count > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_ShoppingCartCounter_shoppingCartCounter__WEBPACK_IMPORTED_MODULE_3__["default"], {
         bookId: book.id,
         className: "book-details-page__icon"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -62551,7 +62552,7 @@ var BooksListItem = /*#__PURE__*/function (_React$Component) {
       }), helpers_localStorageHelper__WEBPACK_IMPORTED_MODULE_10__["default"].getRole() === 'user' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_FavoriteButton_favoriteButton__WEBPACK_IMPORTED_MODULE_6__["default"], {
         book: book,
         className: "books-list-item__favorite-button"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_ShoppingCartCounter_shoppingCartCounter__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      }), book.count > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_ShoppingCartCounter_shoppingCartCounter__WEBPACK_IMPORTED_MODULE_5__["default"], {
         bookId: book.id
       }))));
     }
@@ -62569,7 +62570,8 @@ _defineProperty(BooksListItem, "propTypes", {
     genres: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.array.isRequired,
     price: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number.isRequired,
     pagesCount: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number,
-    publishingYear: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number
+    publishingYear: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number,
+    count: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number
   }).isRequired
 });
 
@@ -64011,7 +64013,8 @@ var FavoriteListItem = /*#__PURE__*/function (_React$PureComponent) {
           publishingYear = _this$props$book.publishingYear,
           price = _this$props$book.price,
           authors = _this$props$book.authors,
-          genres = _this$props$book.genres;
+          genres = _this$props$book.genres,
+          count = _this$props$book.count;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "favorite-list-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -64026,7 +64029,7 @@ var FavoriteListItem = /*#__PURE__*/function (_React$PureComponent) {
         className: "favorite-list-item__publishing-year"
       }, "Publishing year: ", publishingYear), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "favorite-list-item__price"
-      }, "Price: ", price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_ShoppingCartCounter_shoppingCartCounter__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, "Price: ", price), count > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_ShoppingCartCounter_shoppingCartCounter__WEBPACK_IMPORTED_MODULE_2__["default"], {
         bookId: id,
         className: "favorite-list-item__icon"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_OpenDetailsPageButton_openDetailsPageButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -64059,7 +64062,8 @@ _defineProperty(FavoriteListItem, "propTypes", {
     genres: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.array.isRequired,
     price: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number.isRequired,
     pagesCount: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number,
-    publishingYear: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number
+    publishingYear: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number,
+    count: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number
   }).isRequired,
   deleteItem: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired
 });

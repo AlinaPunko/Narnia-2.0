@@ -27,7 +27,8 @@ export default class BooksListItem extends React.Component {
             genres: PropTypes.array.isRequired,
             price: PropTypes.number.isRequired,
             pagesCount: PropTypes.number,
-            publishingYear: PropTypes.number
+            publishingYear: PropTypes.number,
+            count: PropTypes.number
         }).isRequired
     };
 
@@ -84,7 +85,9 @@ export default class BooksListItem extends React.Component {
                                 && (
                                     <>
                                         <FavoriteButton book={book} className="books-list-item__favorite-button" />
-                                        <ShoppingCartCounter bookId={book.id} />
+                                        { book.count > 0 && (
+                                            <ShoppingCartCounter bookId={book.id} />
+                                        )}
                                     </>
                                 )
                     }

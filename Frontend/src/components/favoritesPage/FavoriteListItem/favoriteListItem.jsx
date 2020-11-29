@@ -18,7 +18,8 @@ export default class FavoriteListItem extends React.PureComponent {
             genres: PropTypes.array.isRequired,
             price: PropTypes.number.isRequired,
             pagesCount: PropTypes.number,
-            publishingYear: PropTypes.number
+            publishingYear: PropTypes.number,
+            count: PropTypes.number
         }).isRequired,
         deleteItem: PropTypes.func.isRequired
     };
@@ -30,7 +31,7 @@ export default class FavoriteListItem extends React.PureComponent {
 
     render() {
         const {
-            id, title, image, pagesCount, publishingYear, price, authors, genres
+            id, title, image, pagesCount, publishingYear, price, authors, genres, count
         } = this.props.book;
 
         return (
@@ -42,7 +43,9 @@ export default class FavoriteListItem extends React.PureComponent {
                     <div className="favorite-list-item__pages">Pages: {pagesCount}</div>
                     <div className="favorite-list-item__publishing-year">Publishing year: {publishingYear}</div>
                     <div className="favorite-list-item__price">Price: {price}</div>
-                    <ShoppingCartCounter bookId={id} className="favorite-list-item__icon" />
+                    {count > 0 && (
+                        <ShoppingCartCounter bookId={id} className="favorite-list-item__icon" />
+                    )}
                     <OpenDetailsPageButton bookId={id} className="favorite-list-item__open-details-page-button" />
                     <button type="button" className="favorite-list-item__remove-favorite-button" onClick={this.deleteItem}>Remove favorite</button>
                 </div>

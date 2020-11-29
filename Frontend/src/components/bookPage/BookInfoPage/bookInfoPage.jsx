@@ -43,6 +43,8 @@ export default class BookInfoPage extends React.PureComponent {
     render() {
         const { book } = this.state;
 
+        debugger;
+
         if (this.state.isLoading) {
             return (
                 <div className="book-details-page__preloader">
@@ -80,7 +82,9 @@ export default class BookInfoPage extends React.PureComponent {
                             localStorageHelper.getId() !== '' && localStorageHelper.getId() !== undefined && localStorageHelper.getRole() === 'user' && (
                                 <>
                                     <FavoriteButton book={book} className="book-details-page__button" />
-                                    <ShoppingCartCounter bookId={book.id} className="book-details-page__icon" />
+                                    { book.count > 0 && (
+                                        <ShoppingCartCounter bookId={book.id} className="book-details-page__icon" />
+                                    )}
                                 </>
                             )
                         }

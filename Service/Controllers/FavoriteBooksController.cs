@@ -28,7 +28,6 @@ namespace Service.Controllers
             return favoriteBookRepository.GetByUserId(id)
                 .ToList()
                 .Select(f => f.Book)
-                .Where(b => b.Count != 0)
                 .Select(b =>
                     new BookViewModel
                     {
@@ -41,7 +40,8 @@ namespace Service.Controllers
                         Image = b.EncodedPhoto,
                         PublishingYear = b.PublishingYear,
                         Authors = b.BookToAuthors.Select(a => a.Author.Name).ToList(),
-                        Genres = b.BookToGenres.Select(g => g.Genre.ToString()).ToList()
+                        Genres = b.BookToGenres.Select(g => g.Genre.ToString()).ToList(),
+                        Count = b.Count
                     }
                 )
                 .ToList();
