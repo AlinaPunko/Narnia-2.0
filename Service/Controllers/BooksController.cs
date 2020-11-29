@@ -158,6 +158,7 @@ namespace Service.Controllers
 
                 bookRepository.Update(book);
 
+
             };
         }
 
@@ -173,12 +174,21 @@ namespace Service.Controllers
 
         [Authorize]
         [HttpPost("AddComment")]
-        public IReadOnlyList<Comment> AddAndGetComments([FromBody] Comment comment)
+        public IReadOnlyList<CommentViewModel> AddAndGetComments([FromBody] Comment comment)
         {
             commentRepository.Add(comment);
 
-            var c = commentRepository.Get(c => c.BookId == comment.BookId)
-                .ToList();
+            var c = commentRepository.GetByBookId(comment.BookId)
+                    .Select(c => new CommentViewModel
+                    {
+                        Id = c.Id,
+                        Text = c.Text,
+                        BookId = c.BookId,
+                        UserId = c.UserId,
+                        UserName = c.User.Name,
+                        UserPhoto = c.User.Photo
+                    })
+                    .ToList();
 
             return c;
         }

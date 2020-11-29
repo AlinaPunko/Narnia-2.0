@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "58efd847fd8ed0434e0b";
+/******/ 	var hotCurrentHash = "62d8e54712de7d76fa28";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -58499,12 +58499,14 @@ var SignInPage = /*#__PURE__*/function (_React$PureComponent) {
 
                 userData = _objectSpread({}, _this.state);
                 _context.next = 5;
-                return helpers_serviceWrapper__WEBPACK_IMPORTED_MODULE_7__["default"].callService(services_signInService__WEBPACK_IMPORTED_MODULE_6__["default"].signIn, userData, _this.errorFieldRef);
+                return services_signInService__WEBPACK_IMPORTED_MODULE_6__["default"].signIn(userData);
 
               case 5:
                 result = _context.sent;
 
-                if (result) {
+                if (result.code === 401) {
+                  alert('Incorrect email or password');
+                } else {
                   helpers_localStorageHelper__WEBPACK_IMPORTED_MODULE_9__["default"].addId(result.id);
                   helpers_localStorageHelper__WEBPACK_IMPORTED_MODULE_9__["default"].addToken(result.token);
                   helpers_localStorageHelper__WEBPACK_IMPORTED_MODULE_9__["default"].addRole(result.role);
@@ -68146,38 +68148,34 @@ function post(url, data) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              if (response.status === 401) {
-                window.location.href = '/login';
-              }
-
               if (!(response.status !== 200)) {
-                _context2.next = 8;
+                _context2.next = 7;
                 break;
               }
 
               error = new Error(response.statusText);
               error.code = response.status;
-              _context2.next = 6;
+              _context2.next = 5;
               return response.json();
 
-            case 6:
+            case 5:
               error.message = _context2.sent;
               return _context2.abrupt("return", error);
 
-            case 8:
+            case 7:
               contentType = response.headers.get('content-type');
 
               if (!(contentType && contentType.includes('application/json'))) {
-                _context2.next = 11;
+                _context2.next = 10;
                 break;
               }
 
               return _context2.abrupt("return", response.json());
 
-            case 11:
+            case 10:
               return _context2.abrupt("return", response.text());
 
-            case 12:
+            case 11:
             case "end":
               return _context2.stop();
           }

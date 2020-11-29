@@ -38,10 +38,6 @@ function post(url, data) {
         body: JSON.stringify(data)
     })
         .then(async (response) => {
-            if (response.status === 401) {
-                window.location.href = '/login';
-            }
-
             if (response.status !== 200) {
                 const error = new Error(response.statusText);
                 error.code = response.status;

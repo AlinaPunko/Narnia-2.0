@@ -54,9 +54,11 @@ class SignInPage extends React.PureComponent {
         e.preventDefault();
         if (this.validator.allValid()) {
             const userData = { ...this.state };
-            const result = await serviceWrapper.callService(signInService.signIn, userData, this.errorFieldRef);
-            
-            if (result) {
+            const result = await signInService.signIn(userData);
+
+            if (result.code === 401) {
+                alert('Incorrect email or password');
+            } else {
                 localStorageHelper.addId(result.id);
                 localStorageHelper.addToken(result.token);
                 localStorageHelper.addRole(result.role);
