@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "62d8e54712de7d76fa28";
+/******/ 	var hotCurrentHash = "c610b37b2e4ab25363c9";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -1609,6 +1609,36 @@ exports.push([module.i, ".search-section {\n  display: flex;\n  flex-direction: 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
 exports.push([module.i, ".search-title-box {\n  display: flex;\n  width: 70%;\n  margin: 10px auto; }\n\n.search-title-box__field {\n  width: 100%;\n  border-top: none;\n  border-right: none;\n  border-left: none; }\n\n.search-title-box__button {\n  background-color: transparent;\n  border: none; }\n\n.search-title-box__icon {\n  width: 20px;\n  height: 20px; }\n", ""]);
+
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/search/SortingOptionRadio/sortingOptionRadio.scss":
+/*!*******************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/search/SortingOptionRadio/sortingOptionRadio.scss ***!
+  \*******************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, ".sorting-option-radio {\n  display: flex;\n  justify-content: center;\n  width: 30%; }\n\n.sorting-option-radio__title {\n  padding-right: 3px;\n  font-size: 16px;\n  font-family: 'Lucida Sans'; }\n", ""]);
+
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/search/SortingPanel/sortingPanel.scss":
+/*!*******************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/search/SortingPanel/sortingPanel.scss ***!
+  \*******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, ".sorting-panel {\n  margin: 10px 0; }\n\n.sorting-panel__options {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-around; }\n\n.sorting-panel__title {\n  font-size: 20px;\n  font-family: 'Lucida Sans';\n  text-align: center; }\n", ""]);
 
 
 
@@ -62357,6 +62387,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var store_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! store/actions */ "./src/store/actions/index.js");
 /* harmony import */ var components_booksList_BooksList_booksList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! components/booksList/BooksList/booksList */ "./src/components/booksList/BooksList/booksList.jsx");
+/* harmony import */ var _store_reducers_booksReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../store/reducers/booksReducer */ "./src/store/reducers/booksReducer.js");
+
 
 
 
@@ -62371,15 +62403,52 @@ var arrayContainsArray = function arrayContainsArray(superset, subset) {
   });
 };
 
-var getFilteredBooks = function getFilteredBooks(books, filter) {
-  return books.filter(function (book) {
-    return book.price <= filter.price && book.publishingYear <= filter.publishingYear && book.pagesCount <= filter.pages && book.title.toLowerCase().includes(filter.searchTitleQuery.toLowerCase()) && book.authors.join().toLowerCase().includes(filter.searchAuthorQuery.toLowerCase()) && arrayContainsArray(book.genres, filter.genres);
+var dynamicSort = function dynamicSort(property) {
+  var sortOrder = 1;
+
+  if (property[0] === '-') {
+    sortOrder = -1;
+    property = property.substr(1);
+  }
+
+  return function (a, b) {
+    var result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+    return result * sortOrder;
+  };
+};
+
+var getFilteredBooks = function getFilteredBooks(state) {
+  var books = state.books.filter(function (book) {
+    return book.price <= state.filter.price && book.publishingYear <= state.filter.publishingYear && book.pagesCount <= state.filter.pages && book.title.toLowerCase().includes(state.filter.searchTitleQuery.toLowerCase()) && book.authors.join().toLowerCase().includes(state.filter.searchAuthorQuery.toLowerCase()) && arrayContainsArray(book.genres, state.filter.genres);
   });
+
+  switch (state.sorting.orderBy) {
+    case 'Adding Asc':
+      return books;
+
+    case 'Adding Desc':
+      return books.reverse();
+
+    case 'Title Asc':
+      return books.sort(dynamicSort('title'));
+
+    case 'Title Desc':
+      return books.sort(dynamicSort('-title'));
+
+    case 'Price Asc':
+      return books.sort(dynamicSort('price'));
+
+    case 'Price Desc':
+      return books.sort(dynamicSort('-price'));
+
+    default:
+      return books;
+  }
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    books: getFilteredBooks(state.books, state.filter)
+    books: getFilteredBooks(state)
   };
 };
 
@@ -67161,8 +67230,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var components_search_GenresPanel_genresPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! components/search/GenresPanel/genresPanel */ "./src/components/search/GenresPanel/genresPanel.jsx");
 /* harmony import */ var components_search_SearchTitleBoxContainer_searchTitleBoxContainer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/search/SearchTitleBoxContainer/searchTitleBoxContainer */ "./src/components/search/SearchTitleBoxContainer/searchTitleBoxContainer.js");
 /* harmony import */ var components_search_SearchAuthorBoxContainer_searchAuthorBoxContainer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! components/search/SearchAuthorBoxContainer/searchAuthorBoxContainer */ "./src/components/search/SearchAuthorBoxContainer/searchAuthorBoxContainer.js");
-/* harmony import */ var _searchSection_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./searchSection.scss */ "./src/components/search/SearchSection/searchSection.scss");
-/* harmony import */ var _searchSection_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_searchSection_scss__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var components_search_SortingPanel_sortingPanel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! components/search/SortingPanel/sortingPanel */ "./src/components/search/SortingPanel/sortingPanel.jsx");
+/* harmony import */ var _searchSection_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./searchSection.scss */ "./src/components/search/SearchSection/searchSection.scss");
+/* harmony import */ var _searchSection_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_searchSection_scss__WEBPACK_IMPORTED_MODULE_6__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -67220,6 +67290,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var SearchSection = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(SearchSection, _React$PureComponent);
 
@@ -67253,7 +67324,7 @@ var SearchSection = /*#__PURE__*/function (_React$PureComponent) {
         openFiltersPanel: this.openFiltersPanel
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_search_SearchAuthorBoxContainer_searchAuthorBoxContainer__WEBPACK_IMPORTED_MODULE_4__["default"], {
         openFiltersPanel: this.openFiltersPanel
-      }), this.state.isFiltersPanelShown && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_search_FiltersPanel_filtersPanel__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_search_GenresPanel_genresPanel__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
+      }), this.state.isFiltersPanelShown && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_search_FiltersPanel_filtersPanel__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_search_GenresPanel_genresPanel__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_search_SortingPanel_sortingPanel__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
     }
   }]);
 
@@ -67547,6 +67618,386 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(components_search_SearchTitleBox_searchTitleBox__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./src/components/search/SortingOptionRadio/sortingOptionRadio.jsx":
+/*!*************************************************************************!*\
+  !*** ./src/components/search/SortingOptionRadio/sortingOptionRadio.jsx ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SortingOptionRadio; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _sortingOptionRadio_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sortingOptionRadio.scss */ "./src/components/search/SortingOptionRadio/sortingOptionRadio.scss");
+/* harmony import */ var _sortingOptionRadio_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_sortingOptionRadio_scss__WEBPACK_IMPORTED_MODULE_2__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) {
+  function isNativeReflectConstruct() {
+    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+    if (Reflect.construct.sham) return false;
+    if (typeof Proxy === "function") return true;
+
+    try {
+      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  return function () {
+    var Super = _getPrototypeOf(Derived),
+        result;
+
+    if (isNativeReflectConstruct()) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var SortingOptionRadio = /*#__PURE__*/function (_React$PureComponent) {
+  _inherits(SortingOptionRadio, _React$PureComponent);
+
+  var _super = _createSuper(SortingOptionRadio);
+
+  function SortingOptionRadio(props) {
+    var _this;
+
+    _classCallCheck(this, SortingOptionRadio);
+
+    _this = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this), "changeValue", function () {
+      _this.props.onInput({
+        orderBy: _this.state.orderBy
+      });
+    });
+
+    _this.state = {
+      orderBy: _this.props.title
+    };
+    return _this;
+  }
+
+  _createClass(SortingOptionRadio, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sorting-option-radio"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sorting-option-radio__title"
+      }, this.props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "sorting-option-radio__radio",
+        name: "orderBy",
+        onChange: this.changeValue,
+        type: "radio",
+        defaultChecked: this.props.isChecked
+      }));
+    }
+  }]);
+
+  return SortingOptionRadio;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.PureComponent);
+
+_defineProperty(SortingOptionRadio, "propTypes", {
+  title: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
+  onInput: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  isChecked: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
+});
+
+
+
+/***/ }),
+
+/***/ "./src/components/search/SortingOptionRadio/sortingOptionRadio.scss":
+/*!**************************************************************************!*\
+  !*** ./src/components/search/SortingOptionRadio/sortingOptionRadio.scss ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/sass-loader/dist/cjs.js!./sortingOptionRadio.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/search/SortingOptionRadio/sortingOptionRadio.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept(/*! !../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/sass-loader/dist/cjs.js!./sortingOptionRadio.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/search/SortingOptionRadio/sortingOptionRadio.scss", function() {
+		var newContent = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/sass-loader/dist/cjs.js!./sortingOptionRadio.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/search/SortingOptionRadio/sortingOptionRadio.scss");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./src/components/search/SortingOptionRadioContainer/sortingOptionRadioContainer.js":
+/*!******************************************************************************************!*\
+  !*** ./src/components/search/SortingOptionRadioContainer/sortingOptionRadioContainer.js ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var store_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! store/actions */ "./src/store/actions/index.js");
+/* harmony import */ var components_search_SortingOptionRadio_sortingOptionRadio__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! components/search/SortingOptionRadio/sortingOptionRadio */ "./src/components/search/SortingOptionRadio/sortingOptionRadio.jsx");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    orderBy: state.orderBy
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    onInput: function onInput(orderBy) {
+      return dispatch(Object(store_actions__WEBPACK_IMPORTED_MODULE_1__["sort"])(orderBy));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(components_search_SortingOptionRadio_sortingOptionRadio__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./src/components/search/SortingPanel/sortingPanel.jsx":
+/*!*************************************************************!*\
+  !*** ./src/components/search/SortingPanel/sortingPanel.jsx ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SortingPanel; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var components_search_SortingOptionRadioContainer_sortingOptionRadioContainer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! components/search/SortingOptionRadioContainer/sortingOptionRadioContainer */ "./src/components/search/SortingOptionRadioContainer/sortingOptionRadioContainer.js");
+/* harmony import */ var _sortingPanel_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sortingPanel.scss */ "./src/components/search/SortingPanel/sortingPanel.scss");
+/* harmony import */ var _sortingPanel_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_sortingPanel_scss__WEBPACK_IMPORTED_MODULE_2__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) {
+  function isNativeReflectConstruct() {
+    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+    if (Reflect.construct.sham) return false;
+    if (typeof Proxy === "function") return true;
+
+    try {
+      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  return function () {
+    var Super = _getPrototypeOf(Derived),
+        result;
+
+    if (isNativeReflectConstruct()) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var SortingPanel = /*#__PURE__*/function (_React$PureComponent) {
+  _inherits(SortingPanel, _React$PureComponent);
+
+  var _super = _createSuper(SortingPanel);
+
+  function SortingPanel() {
+    _classCallCheck(this, SortingPanel);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(SortingPanel, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sorting-panel"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+        className: "sorting-panel__title"
+      }, "Sort By"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sorting-panel__options"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_search_SortingOptionRadioContainer_sortingOptionRadioContainer__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        title: "Adding Asc",
+        isChecked: true
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_search_SortingOptionRadioContainer_sortingOptionRadioContainer__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        title: "Title Asc"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_search_SortingOptionRadioContainer_sortingOptionRadioContainer__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        title: "Price Asc"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_search_SortingOptionRadioContainer_sortingOptionRadioContainer__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        title: "Adding Desc"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_search_SortingOptionRadioContainer_sortingOptionRadioContainer__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        title: "Title Desc"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_search_SortingOptionRadioContainer_sortingOptionRadioContainer__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        title: "Price Desc"
+      })));
+    }
+  }]);
+
+  return SortingPanel;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.PureComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/components/search/SortingPanel/sortingPanel.scss":
+/*!**************************************************************!*\
+  !*** ./src/components/search/SortingPanel/sortingPanel.scss ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/sass-loader/dist/cjs.js!./sortingPanel.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/search/SortingPanel/sortingPanel.scss");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept(/*! !../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/sass-loader/dist/cjs.js!./sortingPanel.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/search/SortingPanel/sortingPanel.scss", function() {
+		var newContent = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/sass-loader/dist/cjs.js!./sortingPanel.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/search/SortingPanel/sortingPanel.scss");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 
@@ -69187,12 +69638,14 @@ var SET_FILTER = 'SET_FILTER';
 var SET_CATEGORY = 'SET_CATEGORY';
 var SET_FILTER_BY_TITLE = 'SET_FILTER_BY_TITLE';
 var SET_FILTER_BY_AUTHOR = 'SET_FILTER_BY_AUTHOR';
+var SORT = 'SORT';
 /* harmony default export */ __webpack_exports__["default"] = ({
   ADD_BOOKS: ADD_BOOKS,
   SET_FILTER: SET_FILTER,
   SET_FILTER_BY_TITLE: SET_FILTER_BY_TITLE,
   SET_FILTER_BY_AUTHOR: SET_FILTER_BY_AUTHOR,
-  SET_CATEGORY: SET_CATEGORY
+  SET_CATEGORY: SET_CATEGORY,
+  SORT: SORT
 });
 
 /***/ }),
@@ -69201,7 +69654,7 @@ var SET_FILTER_BY_AUTHOR = 'SET_FILTER_BY_AUTHOR';
 /*!************************************!*\
   !*** ./src/store/actions/index.js ***!
   \************************************/
-/*! exports provided: addBooks, setFilter, setGenre, setFilterByTitle, setFilterByAuthor */
+/*! exports provided: addBooks, setFilter, setGenre, setFilterByTitle, setFilterByAuthor, sort */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69211,6 +69664,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setGenre", function() { return setGenre; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setFilterByTitle", function() { return setFilterByTitle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setFilterByAuthor", function() { return setFilterByAuthor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sort", function() { return sort; });
 /* harmony import */ var store_actions_actionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! store/actions/actionTypes */ "./src/store/actions/actionTypes.js");
 
 var addBooks = function addBooks(books) {
@@ -69241,6 +69695,12 @@ var setFilterByAuthor = function setFilterByAuthor(searchAuthorQuery) {
   return {
     type: store_actions_actionTypes__WEBPACK_IMPORTED_MODULE_0__["default"].SET_FILTER_BY_AUTHOR,
     searchAuthorQuery: searchAuthorQuery
+  };
+};
+var sort = function sort(orderBy) {
+  return {
+    type: store_actions_actionTypes__WEBPACK_IMPORTED_MODULE_0__["default"].SORT,
+    orderBy: orderBy
   };
 };
 
@@ -69388,13 +69848,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _booksReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./booksReducer */ "./src/store/reducers/booksReducer.js");
 /* harmony import */ var _filterReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./filterReducer */ "./src/store/reducers/filterReducer.js");
+/* harmony import */ var _sortingReducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sortingReducer */ "./src/store/reducers/sortingReducer.js");
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   books: _booksReducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  filter: _filterReducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  filter: _filterReducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  sorting: _sortingReducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 }));
+
+/***/ }),
+
+/***/ "./src/store/reducers/sortingReducer.js":
+/*!**********************************************!*\
+  !*** ./src/store/reducers/sortingReducer.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var store_actions_actionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! store/actions/actionTypes */ "./src/store/actions/actionTypes.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var defaultState = {
+  orderBy: 'By Adding'
+};
+
+var sorting = function sorting() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case store_actions_actionTypes__WEBPACK_IMPORTED_MODULE_0__["default"].SORT:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        orderBy: action.orderBy.orderBy
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (sorting);
 
 /***/ }),
 

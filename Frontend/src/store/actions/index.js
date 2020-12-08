@@ -24,3 +24,8 @@ export const setFilterByAuthor = (searchAuthorQuery) => ({
     type: actionTypes.SET_FILTER_BY_AUTHOR,
     searchAuthorQuery
 });
+
+export const sort = (orderBy) => ({
+    type: actionTypes.SORT,
+    orderBy
+});

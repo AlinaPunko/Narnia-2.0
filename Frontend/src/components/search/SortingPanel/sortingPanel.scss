@@ -1,0 +1,15 @@
+.sorting-panel {
+    margin: 10px 0;
+}
+
+.sorting-panel__options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.sorting-panel__title {
+    font-size: 20px;
+    font-family: 'Lucida Sans';
+    text-align: center;
+}

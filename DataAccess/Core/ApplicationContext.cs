@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -194,6 +195,43 @@ namespace DataAccess.Core
                 new BookToAuthor() { BookId = 17, AuthorId = 7 },
                 new BookToAuthor() { BookId = 18, AuthorId = 7 }
              );
+
+            const string ADMIN_ID = "a18be9c0-aa65-4af8-bd17-00bd9344e575";
+            const string ADMIN_ROLE_ID = "ad376a8f-9eab-4bb9-9fca-30b01540f445";
+            const string USER_ROLE_ID = "ad376a8f-9eab-4bb9-9fca-30b01540f446";
+
+            builder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = ADMIN_ROLE_ID,
+                Name = Models.UserRoles.Admin,
+                NormalizedName = Models.UserRoles.Admin.ToUpper()
+            },
+            new IdentityRole
+            {
+                Id = USER_ROLE_ID,
+                Name = Models.UserRoles.User,
+                NormalizedName = Models.UserRoles.User.ToUpper()
+            });
+
+            var hasher = new PasswordHasher<IdentityUser>();
+            builder.Entity<User>().HasData(new User
+            {
+                Id = ADMIN_ID,
+                Name = "admin",
+                UserName = "admin",
+                NormalizedUserName = "admin",
+                Email = "admin@gmail.com",
+                NormalizedEmail = "admin@gmail.com",
+                EmailConfirmed = false,
+                PasswordHash = hasher.HashPassword(null, "Admin123#"),
+                SecurityStamp = string.Empty
+            });
+
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = ADMIN_ROLE_ID,
+                UserId = ADMIN_ID
+            });
         }
     }
 }

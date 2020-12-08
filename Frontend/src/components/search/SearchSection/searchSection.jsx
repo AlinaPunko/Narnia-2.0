@@ -4,6 +4,7 @@ import FiltersPanel from 'components/search/FiltersPanel/filtersPanel';
 import GenresPanel from 'components/search/GenresPanel/genresPanel';
 import SearchTitleBoxContainer from 'components/search/SearchTitleBoxContainer/searchTitleBoxContainer';
 import SearchAuthorBoxContainer from 'components/search/SearchAuthorBoxContainer/searchAuthorBoxContainer';
+import SortingPanel from 'components/search/SortingPanel/sortingPanel';
 
 import './searchSection.scss';
 
@@ -28,6 +29,7 @@ export default class SearchSection extends React.PureComponent {
                         <>
                             <FiltersPanel />
                             <GenresPanel />
+                            <SortingPanel />
                         </>
                     )}
             </div>

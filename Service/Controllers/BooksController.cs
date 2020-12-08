@@ -58,6 +58,7 @@ namespace Service.Controllers
                         Count = b.Count
                     }
                 )
+                .Reverse()
                 .ToList();
         }
 
@@ -157,8 +158,6 @@ namespace Service.Controllers
                 }
 
                 bookRepository.Update(book);
-
-
             };
         }
 
