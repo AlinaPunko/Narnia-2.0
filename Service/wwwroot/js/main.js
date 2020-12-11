@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "c610b37b2e4ab25363c9";
+/******/ 	var hotCurrentHash = "491bd205e49fb74d5fe5";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -61125,7 +61125,6 @@ var BookInfoPage = /*#__PURE__*/function (_React$PureComponent) {
     key: "render",
     value: function render() {
       var book = this.state.book;
-      debugger;
 
       if (this.state.isLoading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -61169,6 +61168,7 @@ var BookInfoPage = /*#__PURE__*/function (_React$PureComponent) {
         className: "book-details-page__button"
       }), book.count > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_ShoppingCartCounter_shoppingCartCounter__WEBPACK_IMPORTED_MODULE_3__["default"], {
         bookId: book.id,
+        maxCount: book.count,
         className: "book-details-page__icon"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "book-details-page__description"
@@ -62624,7 +62624,8 @@ var BooksListItem = /*#__PURE__*/function (_React$Component) {
         book: book,
         className: "books-list-item__favorite-button"
       }), book.count > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_ShoppingCartCounter_shoppingCartCounter__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        bookId: book.id
+        bookId: book.id,
+        maxCount: book.count
       }))));
     }
   }]);
@@ -63845,14 +63846,18 @@ var ShoppingCartCounter = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "addToShoppingCart", function () {
-      helpers_localStorageHelper__WEBPACK_IMPORTED_MODULE_4__["default"].add({
-        userId: helpers_localStorageHelper__WEBPACK_IMPORTED_MODULE_4__["default"].getId(),
-        bookId: _this.props.bookId
-      });
+      if (_this.state.currentAmount < _this.props.maxCount) {
+        helpers_localStorageHelper__WEBPACK_IMPORTED_MODULE_4__["default"].add({
+          userId: helpers_localStorageHelper__WEBPACK_IMPORTED_MODULE_4__["default"].getId(),
+          bookId: _this.props.bookId
+        });
 
-      _this.setState({
-        currentAmount: ++_this.state.currentAmount
-      });
+        _this.setState({
+          currentAmount: ++_this.state.currentAmount
+        });
+      } else {
+        alert("Sorry, we don't have so many books :(");
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "removeFromShoppingCart", function () {
@@ -63909,6 +63914,7 @@ var ShoppingCartCounter = /*#__PURE__*/function (_React$Component) {
 
 _defineProperty(ShoppingCartCounter, "propTypes", {
   bookId: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number.isRequired,
+  maxCount: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number.isRequired,
   className: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired
 });
 
@@ -64102,6 +64108,7 @@ var FavoriteListItem = /*#__PURE__*/function (_React$PureComponent) {
         className: "favorite-list-item__price"
       }, "Price: ", price), count > 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_ShoppingCartCounter_shoppingCartCounter__WEBPACK_IMPORTED_MODULE_2__["default"], {
         bookId: id,
+        maxCount: count,
         className: "favorite-list-item__icon"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_common_OpenDetailsPageButton_openDetailsPageButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
         bookId: id,

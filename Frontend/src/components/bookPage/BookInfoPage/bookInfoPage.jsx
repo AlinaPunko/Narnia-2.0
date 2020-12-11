@@ -43,8 +43,6 @@ export default class BookInfoPage extends React.PureComponent {
     render() {
         const { book } = this.state;
 
-        debugger;
-
         if (this.state.isLoading) {
             return (
                 <div className="book-details-page__preloader">
@@ -83,7 +81,7 @@ export default class BookInfoPage extends React.PureComponent {
                                 <>
                                     <FavoriteButton book={book} className="book-details-page__button" />
                                     { book.count > 0 && (
-                                        <ShoppingCartCounter bookId={book.id} className="book-details-page__icon" />
+                                        <ShoppingCartCounter bookId={book.id} maxCount={book.count} className="book-details-page__icon" />
                                     )}
                                 </>
                             )

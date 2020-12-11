@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DataAccess.Models;
 using DataAccess.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Service.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -22,13 +25,15 @@ namespace Service.Controllers
         private readonly AuthorRepository authorRepository;
         private readonly BookToAuthorRepository bookToAuthorRepository;
         private readonly BookToGenreRepository bookToGenreRepository;
+        private readonly UserManager<User> userManager;
 
         public BooksController(BookRepository bookRepository,
             RateRepository rateRepository,
             CommentRepository commentRepository,
-            BookToGenreRepository bookToGenreRepository, 
-            BookToAuthorRepository bookToAuthorRepository, 
-            AuthorRepository authorRepository )
+            BookToGenreRepository bookToGenreRepository,
+            BookToAuthorRepository bookToAuthorRepository,
+            AuthorRepository authorRepository,
+            UserManager<User> userManager)
         {
             this.bookRepository = bookRepository;
             this.rateRepository = rateRepository;
@@ -36,6 +41,7 @@ namespace Service.Controllers
             this.bookToGenreRepository = bookToGenreRepository;
             this.bookToAuthorRepository = bookToAuthorRepository;
             this.authorRepository = authorRepository;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -108,7 +114,7 @@ namespace Service.Controllers
                 Count = viewModel.Count,
                 Description = viewModel.Description,
                 Rating = 0
-            };
+            };  
 
             bookRepository.Add(book);
 
@@ -177,19 +183,21 @@ namespace Service.Controllers
         {
             commentRepository.Add(comment);
 
-            var c = commentRepository.GetByBookId(comment.BookId)
-                    .Select(c => new CommentViewModel
-                    {
-                        Id = c.Id,
-                        Text = c.Text,
-                        BookId = c.BookId,
-                        UserId = c.UserId,
-                        UserName = c.User.Name,
-                        UserPhoto = c.User.Photo
-                    })
-                    .ToList();
+            var comments = commentRepository.GetByBookId(comment.BookId);
 
-            return c;
+            return comments.Select(c => {
+                var user = userManager.FindByIdAsync(c.UserId);
+
+                return new CommentViewModel
+                {
+                    Id = c.Id,
+                    Text = c.Text,
+                    BookId = c.BookId,
+                    UserId = c.UserId,
+                    UserName = user.Result.Name,
+                    UserPhoto = user.Result.Photo
+                };
+            }).ToList(); 
         }
 
         [Authorize]

@@ -86,7 +86,7 @@ export default class BooksListItem extends React.Component {
                                     <>
                                         <FavoriteButton book={book} className="books-list-item__favorite-button" />
                                         { book.count > 0 && (
-                                            <ShoppingCartCounter bookId={book.id} />
+                                            <ShoppingCartCounter bookId={book.id} maxCount={book.count} />
                                         )}
                                     </>
                                 )

@@ -44,7 +44,7 @@ export default class FavoriteListItem extends React.PureComponent {
                     <div className="favorite-list-item__publishing-year">Publishing year: {publishingYear}</div>
                     <div className="favorite-list-item__price">Price: {price}</div>
                     {count > 0 && (
-                        <ShoppingCartCounter bookId={id} className="favorite-list-item__icon" />
+                        <ShoppingCartCounter bookId={id} maxCount={count} className="favorite-list-item__icon" />
                     )}
                     <OpenDetailsPageButton bookId={id} className="favorite-list-item__open-details-page-button" />
                     <button type="button" className="favorite-list-item__remove-favorite-button" onClick={this.deleteItem}>Remove favorite</button>

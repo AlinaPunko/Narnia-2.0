@@ -21,13 +21,11 @@ namespace Service.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserManager<User> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
 
-        public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public UserController(UserManager<User> userManager,  IConfiguration configuration)
         {
             this.userManager = userManager;
-            this.roleManager = roleManager;
             _configuration = configuration;
         }
 
@@ -104,7 +102,7 @@ namespace Service.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
-            authClaims.Add(new Claim(ClaimTypes.Role, "admin"));
+            authClaims.Add(new Claim(ClaimTypes.Role, UserRoles.User));
 
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
@@ -156,7 +154,7 @@ namespace Service.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
-            authClaims.Add(new Claim(ClaimTypes.Role, "user"));
+            authClaims.Add(new Claim(ClaimTypes.Role, UserRoles.Admin));
 
             return Ok();
         }
@@ -177,6 +175,7 @@ namespace Service.Controllers
             user.Birthdate = viewModel.Birthdate;
             user.Photo = viewModel.Photo;
             user.Address = viewModel.Address;
+            user.Phone = viewModel.Phone;
 
             IdentityResult result = await userManager.UpdateAsync(user);
             if (result == IdentityResult.Success)

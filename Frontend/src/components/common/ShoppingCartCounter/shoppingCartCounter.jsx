@@ -13,6 +13,7 @@ import './shoppingCartCounter.scss';
 export default class ShoppingCartCounter extends React.Component {
     static propTypes = {
         bookId: PropTypes.number.isRequired,
+        maxCount: PropTypes.number.isRequired,
         className: PropTypes.string.isRequired
     }
 
@@ -32,10 +33,14 @@ export default class ShoppingCartCounter extends React.Component {
     }
 
     addToShoppingCart = () => {
-        localStorageHelper.add({ userId: localStorageHelper.getId(), bookId: this.props.bookId });
-        this.setState({
-            currentAmount: ++this.state.currentAmount
-        });
+        if (this.state.currentAmount < this.props.maxCount) {
+            localStorageHelper.add({ userId: localStorageHelper.getId(), bookId: this.props.bookId });
+            this.setState({
+                currentAmount: ++this.state.currentAmount
+            });
+        } else {
+            alert("Sorry, we don't have so many books :(");
+        }
     }
 
     removeFromShoppingCart = () => {
